@@ -29,6 +29,24 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -37,6 +55,15 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\Namaa.BioMertics.UI\bin\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\Namaa.BioMertics.UI\bin\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\Namaa.BioMertics.UI\bin\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,8 +76,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="DbInitializer.cs" />
+    <Compile Include="IdentityData\ApplicationUser.cs" />
+    <Compile Include="Migrations\201902271303431_init.cs" />
+    <Compile Include="Migrations\201902271303431_init.Designer.cs">
+      <DependentUpon>201902271303431_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121105595_AddNewClasses.cs" />
+    <Compile Include="Migrations\201903121105595_AddNewClasses.Designer.cs">
+      <DependentUpon>201903121105595_AddNewClasses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121147158_AddBaseEntity.cs" />
+    <Compile Include="Migrations\201903121147158_AddBaseEntity.Designer.cs">
+      <DependentUpon>201903121147158_AddBaseEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903121300464_AddSecurity.cs" />
+    <Compile Include="Migrations\201903121300464_AddSecurity.Designer.cs">
+      <DependentUpon>201903121300464_AddSecurity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903130909508_AddFatherNameToUser.cs" />
+    <Compile Include="Migrations\201903130909508_AddFatherNameToUser.Designer.cs">
+      <DependentUpon>201903130909508_AddFatherNameToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903131007466_changeProperty.cs" />
+    <Compile Include="Migrations\201903131007466_changeProperty.Designer.cs">
+      <DependentUpon>201903131007466_changeProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903141116174_changeLogDataInfo.cs" />
+    <Compile Include="Migrations\201903141116174_changeLogDataInfo.Designer.cs">
+      <DependentUpon>201903141116174_changeLogDataInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903141206568_changeLogDataInfo1.cs" />
+    <Compile Include="Migrations\201903141206568_changeLogDataInfo1.Designer.cs">
+      <DependentUpon>201903141206568_changeLogDataInfo1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903241257068_AdstartDateTOUser.cs" />
+    <Compile Include="Migrations\201903241257068_AdstartDateTOUser.Designer.cs">
+      <DependentUpon>201903241257068_AdstartDateTOUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="NamaaBioMetricsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +127,35 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902271303431_init.resx">
+      <DependentUpon>201902271303431_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121105595_AddNewClasses.resx">
+      <DependentUpon>201903121105595_AddNewClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121147158_AddBaseEntity.resx">
+      <DependentUpon>201903121147158_AddBaseEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903121300464_AddSecurity.resx">
+      <DependentUpon>201903121300464_AddSecurity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903130909508_AddFatherNameToUser.resx">
+      <DependentUpon>201903130909508_AddFatherNameToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903131007466_changeProperty.resx">
+      <DependentUpon>201903131007466_changeProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903141116174_changeLogDataInfo.resx">
+      <DependentUpon>201903141116174_changeLogDataInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903141206568_changeLogDataInfo1.resx">
+      <DependentUpon>201903141206568_changeLogDataInfo1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903241257068_AdstartDateTOUser.resx">
+      <DependentUpon>201903241257068_AdstartDateTOUser.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

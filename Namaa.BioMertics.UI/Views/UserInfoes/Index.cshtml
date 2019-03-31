@@ -1,0 +1,74 @@
+﻿@model PagedList.IPagedList<Namaa.BioMertics.UI.Models.UserInfoViewModel>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "HRNamaa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Employees</h2>
+@using (Html.BeginForm("Index", "UserInfoes", FormMethod.Get))
+{
+    <p>
+        Search by name: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("EnrolNum", "Index", new { sortOrder = ViewBag.NumSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("BirthDate", "Index", new { sortOrder = ViewBag.BirthSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("CommunityCentre", "Index", new { sortOrder = ViewBag.CenterSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommunityCentreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EnrollNumber }) |
+                @Html.ActionLink("Add Daily Vacation", "Create", 
+                    "DailyVacation", new {num = item.EnrollNumber}, null)|
+                @Html.ActionLink("Add Hourly Vacation", "Create", 
+                    "HourVacation", new {num = item.EnrollNumber}, null)
+
+               
+                @*@Html.ActionLink("Add Daily Vacation", "Create", "DailyVacation", new { num = item.EnrollNumber }) |*@
+                @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

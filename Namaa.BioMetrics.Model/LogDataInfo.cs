@@ -1,24 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Namaa.BioMetrics.Model
 {
-    public class LogDataInfo
+    public class LogDataInfo : BaseEntity
     {
-        public int Id { get; set; }
+        public LogDataInfo()
+        {
+            //  UserInfo = new UserInfo();
+        }
+
         public string EnrollNum { get; set; }
-        public int Year { get; set; }
-        public int Month { get; set; }
-        public int Day { get; set; }
-        public int Hour { get; set; }
-        public int Minutes { get; set; }
-        public int Seconds { get; set; }
+
+        public DateTime LogDate { get; set; }
+
+        public TimeSpan LogTime { get; set; }
+
+        //public int Year { get; set; }
+        //public int Month { get; set; }
+        //public int Day { get; set; }
+        //public int Hour { get; set; }
+        //public int Minutes { get; set; }
+        //public int Seconds { get; set; }
         public int WorkCode { get; set; }
         public int VerfiyMode { get; set; }
         public int InOutMode { get; set; }
-        public UserInfo UserInfo { get; set; }
+        public UserInfo UserInfo { get; set; } = null;
+        [ForeignKey("UserInfo")]
+        public int UserInfoId { get; set; }
     }
 }

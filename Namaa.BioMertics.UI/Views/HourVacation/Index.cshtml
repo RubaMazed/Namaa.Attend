@@ -1,0 +1,91 @@
+﻿@model PagedList.IPagedList<Namaa.BioMertics.UI.Models.HourVacationViewModel>
+    @using PagedList.Mvc;
+    @{
+        ViewBag.Title = "HRNamaa";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>Hour Vacation</h2>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.ActionLink("Num", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+                @*@Html.DisplayNameFor(model => model.FullName)*@
+            </th>
+            <th>
+                @Html.ActionLink("FullName", "Index", new {sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter})
+                @*@Html.DisplayNameFor(model => model.FullName)*@
+            </th>
+            <th>
+                @Html.ActionLink("CommunityCenterName", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("DepartmentName", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("UserPosition", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("ApplicationDate", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("VacationDate", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("FromHour", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("ToHour", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th>
+                @Html.ActionLink("Duration", "Index", new {sortOrder = ViewBag.TimeSortParm, currentFilter = ViewBag.CurrentFilter})
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommunityCenterName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserPosition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VacationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

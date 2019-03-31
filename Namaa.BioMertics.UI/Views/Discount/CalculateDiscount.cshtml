@@ -1,0 +1,118 @@
+﻿@using System.Collections
+@model Namaa.BioMertics.UI.Models.DiscountViewModel
+@using Namaa.BioMetrics.Model.Enums;
+
+@{
+    ViewBag.Title = "CalculateDiscount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Discounts</h2>
+
+@using (Html.BeginForm("CalculateDiscount", "Discount", FormMethod.Get))
+{
+    <p>
+        Month : @Html.DropDownListFor(model => model.Month, new SelectList(
+                    Enum.GetValues((typeof(Months)))), new { @class = "form-control" })
+
+        Year : @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+        <br />
+        CommunityCenter : @Html.DropDownListFor(model => model.CommunityCenter,
+                              new SelectList(Model.CommunityCenters, "Id", "Name"), "اختر مركز مجتمعي", new
+                              {
+                                  htmlAttributes = new { @class = "form-control" }
+                              })
+
+
+        <input type="submit" value="Calculate" />
+    </p>
+    <br />
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Num")
+                @* @Html.ActionLink("EnrolNum", "Index", new {sortOrder = ViewBag.NumSortParm, currentFilter = ViewBag.CurrentFilter})*@
+            </th>
+            <th>
+                @Html.DisplayName("Na me")
+                @*  @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("CommunityName")
+                @* @Html.ActionLink("BirthDate", "Index", new { sortOrder = ViewBag.BirthSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("DepartmentName")
+                @*  @Html.ActionLink("CommunityCentre", "Index", new { sortOrder = ViewBag.CenterSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("TotalHours")
+                @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("TotalDailyVacation")
+                @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+
+            <th>
+                @Html.DisplayName("TotalHouVacatin")
+                @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("DiscountDay")
+                @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                @Html.DisplayName("DiscountHour")
+                @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Details)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommunityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalDailyVacation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalHouVacatin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountHour)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EnrollNum }) |
+                    @*@Html.ActionLink("Add Daily Vacation", "Create",
+                                "DailyVacation", new { num = item.EnrollNumber }, null)|
+                        @Html.ActionLink("Add Hourly Vacation", "Create",
+                                "HourVacation", new { num = item.EnrollNumber }, null)*@
+
+
+
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+}
