@@ -9,16 +9,16 @@ using Namaa.BioMetrics.Utilities.Enums;
 using Namaa.BioMetrics.Model;
 namespace Namaa.BioMetrics.Utilities
 {
-    public class DeviceManipulator
+    public static class DeviceManipulator
     {
-        public CZKEM DeviceCzkem { get; set; }
+        public static CZKEM DeviceCzkem { get; set; }
         /// <summary>
         /// Connect To Device 
         /// </summary>
         /// <param name="ipAddress"></param>
         /// <param name="portNum"></param>
         /// <returns></returns>
-        public ConnectStatus ConnectDevice(string ipAddress, int portNum)
+        public static ConnectStatus ConnectDevice(string ipAddress, int portNum)
         {
             if (DeviceCzkem == null)
             {
@@ -48,7 +48,7 @@ namespace Namaa.BioMetrics.Utilities
         /// </summary>
         /// <param name="machineNumber"></param>
         /// <returns></returns>
-        public ICollection<UserInfo> GetAllUserInfo(int machineNumber)
+        public static ICollection<UserInfo> GetAllUserInfo(int machineNumber)
         {
             string sdwEnrollNumber = string.Empty,
                 sName = string.Empty,
@@ -86,7 +86,7 @@ namespace Namaa.BioMetrics.Utilities
         /// </summary>
         /// <param name="machineNumber"></param>
         /// <returns></returns>
-        public ICollection<LogDataInfo> GetAllLogInfo(int machineNumber)
+        public static ICollection<LogDataInfo> GetAllLogInfo(int machineNumber, int centerId)
         {
             DeviceCzkem.ReadAllGLogData(machineNumber);
             ICollection<LogDataInfo> LogInfoList = new List<LogDataInfo>();
@@ -98,19 +98,29 @@ namespace Namaa.BioMetrics.Utilities
             int day;
             int Hour, Min, Second;
             int workCode = 0;
+            
             while (DeviceCzkem.SSR_GetGeneralLogData(machineNumber, out num, out vmode, out outMode,
                 out year, out month, out day, out Hour, out Min, out Second, ref workCode))
             {
                 LogDataInfo log = new LogDataInfo()
                 {
                     EnrollNum = num,
-                    VerfiyMode = vmode,
-                    InOutMode = outMode,
                     LogDate = new DateTime(year, month, day),
                     LogTime = new TimeSpan(Hour, Min, Second),
-                    WorkCode = workCode,
+                    CommunityCenterId = centerId
                 };
                 LogInfoList.Add(log);
+            }
+            LogInfoList = LogInfoList.OrderBy(c => c.EnrollNum).OrderBy(c => c.LogDate).OrderBy(c => c.LogTime).ToList();
+
+            var result =
+                from l in LogInfoList
+                group l by new { l.EnrollNum, l.LogDate } into g
+                select new { Num = g.Key.EnrollNum, Date = g.Key.LogDate, Times = g.ToList() };
+
+            foreach (var r in result)
+            {
+
             }
             return LogInfoList;
         }

@@ -19,18 +19,19 @@ namespace Namaa.BioMetrics.Model
         public DateTime LogDate { get; set; }
 
         public TimeSpan LogTime { get; set; }
+        public TimeSpan LogOutTime { get; set; }
 
-        //public int Year { get; set; }
-        //public int Month { get; set; }
-        //public int Day { get; set; }
-        //public int Hour { get; set; }
-        //public int Minutes { get; set; }
-        //public int Seconds { get; set; }
-        public int WorkCode { get; set; }
-        public int VerfiyMode { get; set; }
-        public int InOutMode { get; set; }
+
+        //public int WorkCode { get; set; }
+        //public int VerfiyMode { get; set; }
+        //public int InOutMode { get; set; }
+
         public UserInfo UserInfo { get; set; } = null;
         [ForeignKey("UserInfo")]
         public int UserInfoId { get; set; }
+
+        public int CommunityCenterId { get; set; }
+
+        //public CommunityCenter CommunityCenter { get; set; }
     }
 }

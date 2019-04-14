@@ -29,7 +29,7 @@ namespace Namaa.BioMertics.UI.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NumSortParm = String.IsNullOrEmpty(sortOrder) ? "num_desc" : "";
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.BirthSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.PositionSortParm = sortOrder == "Position" ? "position_desc" : "Position";
             ViewBag.CenterSortParm = sortOrder == "CenterName" ? "cname_desc" : "CenterName";
             ViewBag.DeptSortParm = sortOrder == "DepartmentName" ? "dname_desc" : "DepartmentName";
 
@@ -51,7 +51,9 @@ namespace Namaa.BioMertics.UI.Controllers
             ViewBag.CurrentFilter = searchString;
             if (!String.IsNullOrEmpty(searchString))
             {
-                UserViews = UserViews.Where(u => u.FullName.Contains(searchString)).ToList();
+                UserViews = UserViews.Where(u => u.FullName.ToLower().Contains(searchString.ToLower()) ||
+                                            u.EnrollNumber.ToString().ToLower().Contains(searchString.ToLower()))
+                                          .ToList();
             }
             switch (sortOrder)
             {
@@ -64,11 +66,11 @@ namespace Namaa.BioMertics.UI.Controllers
                 case "name_desc":
                     UserViews = UserViews.OrderByDescending(c => c.FullName).ToList();
                     break;
-                case "date_desc":
-                    UserViews = UserViews.OrderByDescending(c => c.BirthDate).ToList();
+                case "position_desc":
+                    UserViews = UserViews.OrderByDescending(c => c.Position).ToList();
                     break;
-                case "Date":
-                    UserViews = UserViews.OrderBy(c => c.BirthDate).ToList();
+                case "Position":
+                    UserViews = UserViews.OrderBy(c => c.Position).ToList();
                     break;
                 case "cname_desc":
                     UserViews = UserViews.OrderByDescending(c => c.CommunityCentreName).ToList();
@@ -176,12 +178,13 @@ namespace Namaa.BioMertics.UI.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EnrollNumber,BirthDate,StartDate,Position,CommunityCentre,Department")] UserInfoViewModel userInfo)
+        public ActionResult Edit([Bind(Include = "Id,FullName,EnrollNumber,BirthDate,StartDate,Position,CommunityCentre,Department")] UserInfoViewModel userInfo)
         {
             if (ModelState.IsValid)
             {
                 UserInfo updatedInfo = db.UserInfos.Where(c => c.EnrollNumber == userInfo.Id.ToString()).FirstOrDefault();
                 // updatedInfo = userInfo;
+                updatedInfo.FullName = userInfo.FullName;
                 updatedInfo.BirthDate = Convert.ToDateTime(userInfo.BirthDate);
                 updatedInfo.StartDate = Convert.ToDateTime(userInfo.StartDate);
                 updatedInfo.Position = userInfo.Position;

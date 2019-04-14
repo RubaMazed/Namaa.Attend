@@ -14,18 +14,15 @@
 {
     <p>
         Month : @Html.DropDownListFor(model => model.Month, new SelectList(
-                    Enum.GetValues((typeof(Months)))), new { @class = "form-control" })
+                    Enum.GetValues((typeof(Months)))), new { @class = "form-control" }) 
 
         Year : @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
         <br />
         CommunityCenter : @Html.DropDownListFor(model => model.CommunityCenter,
-                              new SelectList(Model.CommunityCenters, "Id", "Name"), "اختر مركز مجتمعي", new
-                              {
-                                  htmlAttributes = new { @class = "form-control" }
-                              })
+                              new SelectList(Model.CommunityCenters, "Id", "Name"), "اختر مركز مجتمعي", new { @class = "form-control" })
 
-
-        <input type="submit" value="Calculate" />
+        <br />
+        <input type="submit" value="Calculate Discount" />
     </p>
     <br />
     <table class="table">
@@ -35,7 +32,7 @@
                 @* @Html.ActionLink("EnrolNum", "Index", new {sortOrder = ViewBag.NumSortParm, currentFilter = ViewBag.CurrentFilter})*@
             </th>
             <th>
-                @Html.DisplayName("Na me")
+                @Html.DisplayName("Name")
                 @*  @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
@@ -47,14 +44,13 @@
                 @*  @Html.ActionLink("CommunityCentre", "Index", new { sortOrder = ViewBag.CenterSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
-                @Html.DisplayName("TotalHours")
+                @Html.DisplayName("TotalTime")
                 @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
                 @Html.DisplayName("TotalDailyVacation")
                 @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
-
             <th>
                 @Html.DisplayName("TotalHouVacatin")
                 @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
@@ -86,7 +82,7 @@
                     @Html.DisplayFor(modelItem => item.DepartmentName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalHours)
+                    @Html.DisplayFor(modelItem => item.TotalTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TotalDailyVacation)
@@ -101,14 +97,11 @@
                     @Html.DisplayFor(modelItem => item.DiscountHour)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EnrollNum }) |
-                    @*@Html.ActionLink("Add Daily Vacation", "Create",
-                                "DailyVacation", new { num = item.EnrollNumber }, null)|
-                        @Html.ActionLink("Add Hourly Vacation", "Create",
-                                "HourVacation", new { num = item.EnrollNumber }, null)*@
-
-
-
+                  @*@Html.ActionLink("Edit", "Edit", new { id = item.EnrollNum }) |*@
+                  @*@Html.ActionLink("Add Daily Vacation", "Create",
+                   "DailyVacation", new { num = item.EnrollNumber }, null)|
+                    @Html.ActionLink("Add Hourly Vacation", "Create",
+                   "HourVacation", new { num = item.EnrollNumber }, null)*@
                 </td>
             </tr>
         }

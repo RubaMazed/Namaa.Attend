@@ -115,6 +115,14 @@
     <Compile Include="Migrations\201903241257068_AdstartDateTOUser.Designer.cs">
       <DependentUpon>201903241257068_AdstartDateTOUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904010746006_updateCommunityCenter.cs" />
+    <Compile Include="Migrations\201904010746006_updateCommunityCenter.Designer.cs">
+      <DependentUpon>201904010746006_updateCommunityCenter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904010921230_updateLog2.cs" />
+    <Compile Include="Migrations\201904010921230_updateLog2.Designer.cs">
+      <DependentUpon>201904010921230_updateLog2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -155,6 +163,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903241257068_AdstartDateTOUser.resx">
       <DependentUpon>201903241257068_AdstartDateTOUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904010746006_updateCommunityCenter.resx">
+      <DependentUpon>201904010746006_updateCommunityCenter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904010921230_updateLog2.resx">
+      <DependentUpon>201904010921230_updateLog2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

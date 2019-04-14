@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Namaa.BioMetrics.Utilities"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Namaa.BioMertics.UI", "Namaa.BioMertics.UI\Namaa.BioMertics.UI.csproj", "{B5AB193D-2A8A-4598-976B-78DA00C7F1A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Namaa.BioMetrics.AdminUI", "Namaa.BioMetrics.AdminUI\Namaa.BioMetrics.AdminUI.csproj", "{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{B5AB193D-2A8A-4598-976B-78DA00C7F1A0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B5AB193D-2A8A-4598-976B-78DA00C7F1A0}.Release|x64.ActiveCfg = Release|x64
 		{B5AB193D-2A8A-4598-976B-78DA00C7F1A0}.Release|x64.Build.0 = Release|x64
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Debug|x64.Build.0 = Debug|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Release|x64.ActiveCfg = Release|Any CPU
+		{B26748D2-F9E0-49EF-AA5F-ECB01CDE636E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

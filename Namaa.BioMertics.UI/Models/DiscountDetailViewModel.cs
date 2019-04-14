@@ -16,6 +16,10 @@ namespace Namaa.BioMertics.UI.Models
         public string CommunityName { get; set; }
 
         public int TotalHours { get; set; }
+
+        public int TotalMins { get; set; }
+
+        public string TotalTime { get; set; }
         public int TotalDailyVacation { get; set; }
 
         public int TotalHouVacatin { get; set; }

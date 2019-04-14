@@ -9,7 +9,7 @@
 @using (Html.BeginForm("Index", "UserInfoes", FormMethod.Get))
 {
     <p>
-        Search by name: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
+        Search by Name or Number: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -22,7 +22,7 @@
             @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("BirthDate", "Index", new { sortOrder = ViewBag.BirthSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.ActionLink("CommunityCentre", "Index", new { sortOrder = ViewBag.CenterSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
+                @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CommunityCentreName)

@@ -13,6 +13,7 @@ namespace Namaa.BioMertics.UI.Models
         public string FullName { get; set; }
         public string LogDate { get; set; }
         public TimeSpan LogInTime { get; set; }
+        public TimeSpan LogOutTime { get; set; }
         public string DepartmentName { get; set; }
         public string CommunityCenterName { get; set; }
 
@@ -25,6 +26,7 @@ namespace Namaa.BioMertics.UI.Models
                 FullName = log.UserInfo.FullName,
                 LogDate = log.LogDate.ToShortDateString(),
                 LogInTime = log.LogTime,
+                LogOutTime = log.LogOutTime,
                 CommunityCenterName = log.UserInfo.CommunityCenter.Name,
                 DepartmentName = log.UserInfo.Department.Name
             };
@@ -37,6 +39,7 @@ namespace Namaa.BioMertics.UI.Models
                 EnrollNum = lvm.EnrollNum.ToString(),
                 LogDate = Convert.ToDateTime(lvm.LogDate),
                 LogTime = lvm.LogInTime,
+                LogOutTime = lvm.LogOutTime,
                 Id = lvm.Id
 
             };
