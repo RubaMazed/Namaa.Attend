@@ -31,7 +31,7 @@ namespace Namaa.BioMertics.UI.Controllers
             ViewBag.DepartmentNameSortParm = sortOrder == "DepartmentName" ? "dname_desc" : "DepartmentName";
             ViewBag.DurationSortParm = sortOrder == "Duration" ? "dur_desc" : "Duration";
             List<DailyVacation> vacations = db.DailyVacations.Where(c => c.IsActive).Include("UserInfo")
-                .Include("UserInfo.CommunityCenter").Include("UserInfo.Department").ToList();
+                .Include("UserInfo.CommunityCenter").Include("VacationType").Include("UserInfo.Department").ToList();
             List<DailyVacationViewModel> vactionViewModel = new List<DailyVacationViewModel>();
             foreach (var vac in vacations)
             {

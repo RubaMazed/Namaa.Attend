@@ -21,29 +21,32 @@
         </th>
 
         <th>
-            @Html.ActionLink("FullName", "Index", new {sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
             @*@Html.DisplayNameFor(model => model.FullName)*@
         </th>
         <th>
-            @Html.ActionLink("CommunityCenterName", "Index", new {sortOrder = ViewBag.CommunityCenterNameSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("CommunityCenterName", "Index", new { sortOrder = ViewBag.CommunityCenterNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("DepartmentName", "Index", new {sortOrder = ViewBag.DepartmentNameSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("DepartmentName", "Index", new { sortOrder = ViewBag.DepartmentNameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("UserPosition", "Index", new {sortOrder = ViewBag.UserPositionSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("UserPosition", "Index", new { sortOrder = ViewBag.UserPositionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("ApplicationDate", "Index", new {sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.TypeSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("FromDate", "Index", new {sortOrder = ViewBag.FromDateSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("ApplicationDate", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("ToDate", "Index", new {sortOrder = ViewBag.ToDateSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("FromDate", "Index", new { sortOrder = ViewBag.FromDateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Duration", "Index", new {sortOrder = ViewBag.DurationSortParm, currentFilter = ViewBag.CurrentFilter})
+            @Html.ActionLink("ToDate", "Index", new { sortOrder = ViewBag.ToDateSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Duration", "Index", new { sortOrder = ViewBag.DurationSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -66,6 +69,9 @@
                 @Html.DisplayFor(modelItem => item.UserPosition)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.VacationTypeName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ApplicationDate)
             </td>
             <td>
@@ -78,8 +84,8 @@
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
 
             </td>
         </tr>

@@ -33,6 +33,9 @@ namespace Namaa.BioMertics.UI.Models
         #endregion
 
         #region Vacation
+
+        [DisplayName("Type")]
+        public string VacationTypeName { get; set; }
         [Required]
         [DisplayName("Duration")]
         public int Duration { get; set; }
@@ -69,6 +72,7 @@ namespace Namaa.BioMertics.UI.Models
                 Reason = vacation.Reason,
                 Duration = vacation.Duration,
                 VacationType = vacation.VacationTypeId,
+                VacationTypeName = vacation.VacationType.Name,
                 IsDelegacy = vacation.IsDelegacy,
                 UserId = vacation.UserInfoId,
                 UserName = vacation.UserInfo.FullName,

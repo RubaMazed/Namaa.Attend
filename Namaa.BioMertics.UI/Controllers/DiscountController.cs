@@ -584,7 +584,7 @@ namespace Namaa.BioMertics.UI.Controllers
                 LogDataInfoViewModel lvm = log;
                 empDetails.Logs.Add(lvm);
             }
-            List<DailyVacation> dVacations = _db.DailyVacations
+            List<DailyVacation> dVacations = _db.DailyVacations.Include("VacationType")
                 .Where(c => c.UserInfo.EnrollNumber == num.ToString()
                 && (c.IsActive)
                 && (c.FromDate <= toDate)).OrderBy(c => c.FromDate).ToList();
