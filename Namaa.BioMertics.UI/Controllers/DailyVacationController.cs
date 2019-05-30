@@ -23,11 +23,13 @@ namespace Namaa.BioMertics.UI.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NumSortParm = String.IsNullOrEmpty(sortOrder) ? "num_desc" : "";
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.BirthSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewBag.BirthSortParm = sortOrder == "Time" ? "time_desc" : "Time";
-            ViewBag.CenterSortParm = sortOrder == "CommunityCenterName" ? "cname_desc" : "CenterName";
-            ViewBag.DeptSortParm = sortOrder == "DepartmentName" ? "dname_desc" : "DepartmentName";
-
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.FromDateSortParm = sortOrder == "FromDate" ? "fdate_desc" : "FromDate";
+            ViewBag.ToDateSortParm = sortOrder == "ToDate" ? "tdate_desc" : "ToDate";
+            ViewBag.UserPositionSortParm = sortOrder == "Position" ? "pos_desc" : "Position";
+            ViewBag.CommunityCenterNameSortParm = sortOrder == "CenterName" ? "cname_desc" : "CenterName";
+            ViewBag.DepartmentNameSortParm = sortOrder == "DepartmentName" ? "dname_desc" : "DepartmentName";
+            ViewBag.DurationSortParm = sortOrder == "Duration" ? "dur_desc" : "Duration";
             List<DailyVacation> vacations = db.DailyVacations.Where(c => c.IsActive).Include("UserInfo")
                 .Include("UserInfo.CommunityCenter").Include("UserInfo.Department").ToList();
             List<DailyVacationViewModel> vactionViewModel = new List<DailyVacationViewModel>();
@@ -36,9 +38,21 @@ namespace Namaa.BioMertics.UI.Controllers
                 DailyVacationViewModel DVM = vac;
                 vactionViewModel.Add(vac);
             }
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vactionViewModel = vactionViewModel.Where(u => u.UserName.ToLower().Contains(searchString.ToLower())).ToList();
+            }
             switch (sortOrder)
             {
-
                 case "Name":
                     vactionViewModel = vactionViewModel.OrderBy(c => c.UserName).ToList();
                     break;
@@ -51,10 +65,36 @@ namespace Namaa.BioMertics.UI.Controllers
                 case "Date":
                     vactionViewModel = vactionViewModel.OrderBy(c => c.ApplicationDate).ToList();
                     break;
+                case "dur_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.Duration).ToList();
+                    break;
+                case "Duration":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.Duration).ToList();
+                    break;
+                case "pos_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.UserPosition).ToList();
+                    break;
+                case "Position":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.UserPosition).ToList();
+                    break;
+                case "fdate_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.FromDate).ToList();
+                    break;
+                case "FromDate":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.FromDate).ToList();
+                    break;
+                case "tdate_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.ToDate).ToList();
+                    break;
+                case "ToDate":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.ToDate).ToList();
+                    break;
+                case "CenterName":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.CommunityCenterName).ToList();
+                    break;
                 case "cname_desc":
                     vactionViewModel = vactionViewModel.OrderByDescending(c => c.CommunityCenterName).ToList();
                     break;
-
                 case "DepartmentName":
                     vactionViewModel = vactionViewModel.OrderBy(c => c.DepartmentName).ToList();
                     break;

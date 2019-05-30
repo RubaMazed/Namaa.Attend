@@ -15,6 +15,7 @@ namespace Namaa.BioMetrics.Data
     {
         public ApplicationDbContext() : base("LocalConnection", throwIfV1Schema: false)
         {
+
         }
 
         public static ApplicationDbContext Create()

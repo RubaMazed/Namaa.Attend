@@ -8,9 +8,18 @@ namespace Namaa.BioMertics.UI.Models
 {
     public class DiscountViewModel
     {
-        public Months Month { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
 
-        public int Year { get; set; }
+        public int HolidaysNum { get; set; }
+
+        public int WorkingDay { get; set; }
+        public int TotalOffDay { get; set; }
+        public int CenterWorkingHour { get; set; }
+
+        public int TotlalCenterHours { get; set; }
+        //public Months Month { get; set; }
+        //public int Year { get; set; }
 
         public int CommunityCenter { get; set; }
 

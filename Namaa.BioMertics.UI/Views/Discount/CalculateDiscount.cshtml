@@ -7,25 +7,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
 <h2>Discounts</h2>
 
-@using (Html.BeginForm("CalculateDiscount", "Discount", FormMethod.Get))
+@using (Html.BeginForm())
 {
-    <p>
-        Month : @Html.DropDownListFor(model => model.Month, new SelectList(
-                    Enum.GetValues((typeof(Months)))), new { @class = "form-control" }) 
 
-        Year : @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
-        <br />
-        CommunityCenter : @Html.DropDownListFor(model => model.CommunityCenter,
-                              new SelectList(Model.CommunityCenters, "Id", "Name"), "اختر مركز مجتمعي", new { @class = "form-control" })
-
-        <br />
-        <input type="submit" value="Calculate Discount" />
-    </p>
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            @Html.LabelFor(model => model.FromDate)
+            @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            @Html.LabelFor(model => model.ToDate)
+            @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control date-picker" } })
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            @Html.LabelFor(model => model.CommunityCenter)
+            @Html.DropDownListFor(model => model.CommunityCenter,
+                new SelectList(Model.CommunityCenters, "Id", "Name"), "اختر مركز مجتمعي", new { @class = "form-control" })
+        </div>
+        <div class="col-xs-6 col-sm-3">
+            @Html.LabelFor(model => model.HolidaysNum)
+            @Html.EditorFor(model => model.HolidaysNum, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
     <br />
-    <table class="table">
+    <input type="submit" value="CalculateDiscount" formaction="CalculateDiscount" class="btn btn-primary" />
+    <input type="submit" value="Export" formaction="Export" class="btn btn-primary" />
+    <br/>
+    <br />
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            @Html.LabelFor(model=>model.WorkingDay)
+            @Html.TextBoxFor(model => model.WorkingDay, new 
+            { disabled = "disabled", @readonly = "readonly" })
+        </div>
+   
+        <div class="col-xs-6 col-sm-3">
+            @Html.Label("TotalHour")
+            @Html.TextBoxFor(model => model.TotlalCenterHours, new 
+            { disabled = "disabled", @readonly = "readonly" })
+        </div>
+        <div class="col-xs-6 col-sm-3">
+         
+        </div>
+        <div class="col-xs-6 col-sm-3">
+         
+        </div>
+        </div>
+       
+    <br />
+
+    <br />
+    <table class="table table-hover">
+        <thead class="">
         <tr>
             <th>
                 @Html.DisplayName("Num")
@@ -35,10 +73,10 @@
                 @Html.DisplayName("Name")
                 @*  @Html.ActionLink("FullName", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayName("CommunityName")
                 @* @Html.ActionLink("BirthDate", "Index", new { sortOrder = ViewBag.BirthSortParm, currentFilter = ViewBag.CurrentFilter })*@
-            </th>
+            @* </th>*@
             <th>
                 @Html.DisplayName("DepartmentName")
                 @*  @Html.ActionLink("CommunityCentre", "Index", new { sortOrder = ViewBag.CenterSortParm, currentFilter = ViewBag.CurrentFilter })*@
@@ -60,52 +98,123 @@
                 @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
-                @Html.DisplayName("DiscountHour")
+                @Html.DisplayName("Total Delay")
                 @*  @Html.ActionLink("Department", "Index", new { sortOrder = ViewBag.DeptSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th></th>
         </tr>
-
+        </thead>
         @foreach (var item in Model.Details)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EnrollNum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
+            if (item.TotalHours < Model.TotlalCenterHours)
+            {
+                <tr class="danger">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.CommunityName)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalDailyVacation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalHouVacatin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountDay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalDelay)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "GetEmpDisDetails", "Discount",
+                            new
+                            {
+                                num = item.EnrollNum,
+                                fromDate = @Html.ViewBag.fromDate,
+                                toDate = @Html.ViewBag.toDate
+                            },
+                            null
+                            )
+                    </td>
+
+                </tr>
+            }
+            else
+
+            {
+                <tr >
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    @*<td>
                     @Html.DisplayFor(modelItem => item.CommunityName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DepartmentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalDailyVacation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalHouVacatin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountHour)
-                </td>
-                <td>
-                  @*@Html.ActionLink("Edit", "Edit", new { id = item.EnrollNum }) |*@
-                  @*@Html.ActionLink("Add Daily Vacation", "Create",
-                   "DailyVacation", new { num = item.EnrollNumber }, null)|
-                    @Html.ActionLink("Add Hourly Vacation", "Create",
-                   "HourVacation", new { num = item.EnrollNumber }, null)*@
-                </td>
-            </tr>
+                </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalDailyVacation)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalHouVacatin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountDay)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalDelay)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "GetEmpDisDetails", "Discount",
+                            new
+                            {
+                                num = item.EnrollNum,
+                                fromDate = @Html.ViewBag.fromDate,
+                                toDate = @Html.ViewBag.toDate
+                            },
+                            null
+                            )
+                    </td>
+
+                </tr>
+            }
+
         }
 
     </table>
-    <br />
+        <br />
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".date-picker").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/MM/yy'
+            });
+
+        });
+
+    </script>
 }

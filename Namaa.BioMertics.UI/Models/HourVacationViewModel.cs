@@ -32,7 +32,8 @@ namespace Namaa.BioMertics.UI.Models
         #endregion
 
         #region VacationProperty
-        public int Duration { get; set; }
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
+        public TimeSpan Duration { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan FromHour { get; set; }

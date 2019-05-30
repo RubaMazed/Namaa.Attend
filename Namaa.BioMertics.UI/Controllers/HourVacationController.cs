@@ -23,10 +23,15 @@ namespace Namaa.BioMertics.UI.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NumSortParm = String.IsNullOrEmpty(sortOrder) ? "num_desc" : "";
             ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.BirthSortParm = sortOrder == "Date" ? "date_desc" : "Date";
-            ViewBag.BirthSortParm = sortOrder == "Time" ? "time_desc" : "Time";
-            ViewBag.CenterSortParm = sortOrder == "CommunityCenterName" ? "cname_desc" : "CenterName";
+            ViewBag.CommunityCenterNameSortParm = sortOrder == "CenterName" ? "center_desc" : "CenterName";
             ViewBag.DeptSortParm = sortOrder == "DepartmentName" ? "dname_desc" : "DepartmentName";
+            ViewBag.UserPositionSortParm = sortOrder == "Position" ? "pos_desc" : "Position";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.UserPositionSortParm = sortOrder == "Position" ? "pos_desc" : "Position";
+            ViewBag.VacationDateSortParm = sortOrder == "VactionDate" ? "vdate_desc" : "VactionDate";
+            ViewBag.FromHourSortParm = sortOrder == "FromHour" ? "fhour_desc" : "FromHour";
+            ViewBag.ToHourSortParm = sortOrder == "ToHour" ? "thour_desc" : "ToHour";
+            ViewBag.DurationSortParm = sortOrder == "Duration" ? "dur_desc" : "Duration";
             List<HourlyVacation> vacations = db.HourlyVacations.Where(c => c.IsActive).Include("UserInfo")
                 .Include("UserInfo.CommunityCenter").Include("UserInfo.Department").ToList();
             List<HourVacationViewModel> vactionViewModel = new List<HourVacationViewModel>();
@@ -34,6 +39,20 @@ namespace Namaa.BioMertics.UI.Controllers
             {
                 //HourVacationViewModel HVM = vac;
                 vactionViewModel.Add(vac);
+            }
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewBag.CurrentFilter = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                vactionViewModel = vactionViewModel.Where(u => u.UserName.ToLower().Contains(searchString.ToLower())).ToList();
             }
             switch (sortOrder)
             {
@@ -44,19 +63,64 @@ namespace Namaa.BioMertics.UI.Controllers
                 case "name_desc":
                     vactionViewModel = vactionViewModel.OrderByDescending(c => c.UserName).ToList();
                     break;
+
                 case "date_desc":
                     vactionViewModel = vactionViewModel.OrderByDescending(c => c.ApplicationDate).ToList();
                     break;
                 case "Date":
                     vactionViewModel = vactionViewModel.OrderBy(c => c.ApplicationDate).ToList();
                     break;
-                case "cname_desc":
+
+                case "center_desc":
                     vactionViewModel = vactionViewModel.OrderByDescending(c => c.CommunityCenterName).ToList();
+                    break;
+                case "CenterName":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.CommunityCenterName).ToList();
                     break;
 
                 case "DepartmentName":
                     vactionViewModel = vactionViewModel.OrderBy(c => c.DepartmentName).ToList();
                     break;
+                case "dname_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.DepartmentName).ToList();
+                    break;
+
+                case "Position":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.UserPosition).ToList();
+                    break;
+                case "pos_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.UserPosition).ToList();
+                    break;
+
+                case "FromHour":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.FromHour).ToList();
+                    break;
+                case "fhour_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.FromHour).ToList();
+                    break;
+
+                case "ToHour":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.ToHour).ToList();
+                    break;
+                case "thour_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.ToHour).ToList();
+                    break;
+
+                case "VacationDate":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.VacationDate).ToList();
+                    break;
+                case "vdate_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.VacationDate).ToList();
+                    break;
+
+                case "Duration":
+                    vactionViewModel = vactionViewModel.OrderBy(c => c.Duration).ToList();
+                    break;
+                case "dur_desc":
+                    vactionViewModel = vactionViewModel.OrderByDescending(c => c.Duration).ToList();
+                    break;
+
+
                 default:
                     vactionViewModel = vactionViewModel.OrderBy(c => c.UserName).ToList();
                     break;
@@ -88,6 +152,8 @@ namespace Namaa.BioMertics.UI.Controllers
             if (ModelState.IsValid)
             {
                 HourlyVacation HV = vacation;
+                HV.CreationDate = DateTime.Now;
+                HV.CreatedBy = User.Identity.GetUserName();
                 db.HourlyVacations.Add(HV);
                 db.SaveChanges();
                 // return View();

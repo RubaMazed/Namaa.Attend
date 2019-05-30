@@ -123,6 +123,26 @@
     <Compile Include="Migrations\201904010921230_updateLog2.Designer.cs">
       <DependentUpon>201904010921230_updateLog2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904231045260_changedurationtodouble.cs" />
+    <Compile Include="Migrations\201904231045260_changedurationtodouble.Designer.cs">
+      <DependentUpon>201904231045260_changedurationtodouble.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904280615383_updateDuration.cs" />
+    <Compile Include="Migrations\201904280615383_updateDuration.Designer.cs">
+      <DependentUpon>201904280615383_updateDuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905080814596_addSchedule.cs" />
+    <Compile Include="Migrations\201905080814596_addSchedule.Designer.cs">
+      <DependentUpon>201905080814596_addSchedule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905220804503_updateVacationType.cs" />
+    <Compile Include="Migrations\201905220804503_updateVacationType.Designer.cs">
+      <DependentUpon>201905220804503_updateVacationType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905280903522_addIasAdministrativeColumn.cs" />
+    <Compile Include="Migrations\201905280903522_addIasAdministrativeColumn.Designer.cs">
+      <DependentUpon>201905280903522_addIasAdministrativeColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -169,6 +189,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904010921230_updateLog2.resx">
       <DependentUpon>201904010921230_updateLog2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904231045260_changedurationtodouble.resx">
+      <DependentUpon>201904231045260_changedurationtodouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904280615383_updateDuration.resx">
+      <DependentUpon>201904280615383_updateDuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905080814596_addSchedule.resx">
+      <DependentUpon>201905080814596_addSchedule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905220804503_updateVacationType.resx">
+      <DependentUpon>201905220804503_updateVacationType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905280903522_addIasAdministrativeColumn.resx">
+      <DependentUpon>201905280903522_addIasAdministrativeColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,135 @@
+﻿@using System.Collections;
+@using Namaa.BioMetrics.Model
+@model Namaa.BioMertics.UI.Models.EmpDiscountDetails
+@using Namaa.BioMetrics.Model.Enums;
+
+@{
+    ViewBag.Title = "GetEmpDisDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<p>
+    Num: @Html.TextBoxFor(model => model.EnrollNumber  ,new 
+         { disabled = "disabled", @readonly = "readonly" })
+    Name: @Html.TextBoxFor(model => model.Name, new 
+          { disabled = "disabled", @readonly = "readonly" })
+</p>
+<h3>Employee Logs</h3>
+@if (Model.Logs.Count != 0)
+{
+    <table class="table">
+        <tr>
+
+            <th>@Html.DisplayName("Day")</th>
+            <th>@Html.DisplayName("Date")</th>
+            <th>@Html.DisplayName("LogIn")</th>
+            <th>@Html.DisplayName("LogOut")</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.Logs)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogDate.AsDateTime().DayOfWeek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogInTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogOutTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "LogDataInfoes", new { id = item.Id },null) 
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No Logs</p>
+}
+
+
+<h3>Daily Vacations</h3>
+@if (Model.DailyVacations.Count != 0)
+{
+    <table class="table">
+        <tr>
+            @*<th>@Html.DisplayName("VacationType")</th>*@
+            <th>@Html.DisplayName("ApplicationDate")</th>
+            <th>@Html.DisplayName("FromDate")</th>
+            <th>@Html.DisplayName("ToDate")</th>
+            <th>@Html.DisplayName("Duration")</th>
+        </tr>
+        @foreach (var daily in Model.DailyVacations)
+        {
+            @*<tr>
+                    @Html.DisplayFor(modelItem=>daily.VacationType)
+                </tr>*@
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => daily.ApplicationDate)
+                </td>
+
+                <td> @Html.DisplayFor(modelItem => daily.FromDate)</td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => daily.ToDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => daily.Duration)
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Daily Vacations</p>
+}
+
+<h3>Hour Vacations</h3>
+@if (Model.HourVacations.Count != 0)
+{
+    <table class="table">
+        <tr>
+            <th>@Html.DisplayName("ApplicationDate")</th>
+            <th>@Html.DisplayName("VacationDate")</th>
+            <th>@Html.DisplayName("FromHour")</th>
+            <th>@Html.DisplayName("ToHour")</th>
+            <th>@Html.DisplayName("Duration")</th>
+        </tr>
+        @foreach (var hour in Model.HourVacations)
+        {
+        <tr>
+            <td> @Html.DisplayFor(modelItem => hour.ApplicationDate)</td>
+
+
+            <td> @Html.DisplayFor(modelItem => hour.VacationDate)</td>
+
+            <td>
+                @Html.DisplayFor(modelItem => hour.FromHour)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => hour.ToHour)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => hour.Duration)
+            </td>
+        </tr>
+        }
+    </table>
+}
+else
+{
+    <p> No Hour Vacations </p>
+}

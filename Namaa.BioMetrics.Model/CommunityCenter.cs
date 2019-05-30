@@ -24,6 +24,7 @@ namespace Namaa.BioMetrics.Model
 
         public int TotalHour { get; set; }
         public ICollection<UserInfo> Users { get; set; }
+        public ICollection<Schedule> Schedules { get; set; }
 
     }
 }

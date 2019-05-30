@@ -13,5 +13,8 @@ namespace Namaa.BioMetrics.Model
         public string Name { get; set; }
         public int Duration { get; set; }
         public VacationUnit Unit { get; set; }
+
+        public bool IsDiscount { get; set; }
+        public bool IsAdministrative { get; set; }
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="HourlyVacation.cs" />
     <Compile Include="LogDataInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="UserInfo.cs" />
     <Compile Include="DailyVacation.cs" />

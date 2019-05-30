@@ -224,7 +224,6 @@ namespace Namaa.BioMertics.UI.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

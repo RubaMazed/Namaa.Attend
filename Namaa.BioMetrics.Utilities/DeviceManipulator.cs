@@ -86,7 +86,7 @@ namespace Namaa.BioMetrics.Utilities
         /// </summary>
         /// <param name="machineNumber"></param>
         /// <returns></returns>
-        public static ICollection<LogDataInfo> GetAllLogInfo(int machineNumber, int centerId)
+        public static ICollection<LogDataInfo> GetAllLogInfo(int machineNumber, int centerId, DateTime fromDate, DateTime toDate)
         {
             DeviceCzkem.ReadAllGLogData(machineNumber);
             ICollection<LogDataInfo> LogInfoList = new List<LogDataInfo>();
@@ -98,20 +98,25 @@ namespace Namaa.BioMetrics.Utilities
             int day;
             int Hour, Min, Second;
             int workCode = 0;
-            
+
             while (DeviceCzkem.SSR_GetGeneralLogData(machineNumber, out num, out vmode, out outMode,
                 out year, out month, out day, out Hour, out Min, out Second, ref workCode))
             {
-                LogDataInfo log = new LogDataInfo()
+                var date = new DateTime(year, month, day);
+                if (date >= fromDate && date <= toDate)
                 {
-                    EnrollNum = num,
-                    LogDate = new DateTime(year, month, day),
-                    LogTime = new TimeSpan(Hour, Min, Second),
-                    CommunityCenterId = centerId
-                };
-                LogInfoList.Add(log);
+                    LogDataInfo log = new LogDataInfo()
+                    {
+                        EnrollNum = num,
+                        LogDate = new DateTime(year, month, day),
+                        LogTime = new TimeSpan(Hour, Min, Second),
+                        CommunityCenterId = centerId
+                    };
+                    LogInfoList.Add(log);
+                }
+
             }
-            LogInfoList = LogInfoList.OrderBy(c => c.EnrollNum).OrderBy(c => c.LogDate).OrderBy(c => c.LogTime).ToList();
+            LogInfoList = LogInfoList.OrderBy(c => c.EnrollNum).ThenBy(c => c.LogDate).ThenBy(c => c.LogTime).ToList();
 
             var result =
                 from l in LogInfoList
